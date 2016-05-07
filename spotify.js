@@ -18,13 +18,13 @@ class SpotifyApi {
 		var response = null;
 		
 		$.ajax({
-			url: this.url + "tracks/" + id,
-			method: "GET",
-			async: false,
-			cache: false,
-			dataType: "json",
-			success: function(data) { response = data; },
-			error: function() { }
+			url: 		this.url + "tracks/" + id,
+			method: 	"GET",
+			async: 		false,
+			cache: 		false,
+			dataType: 	"json",
+			success: 	function(data) { response = data; },
+			error: 		function() { }
 		});
 		
 		return response;

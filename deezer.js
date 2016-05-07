@@ -16,15 +16,15 @@ class DeezerApi {
 	
 	getTrackInfo(id) {
 		var response = null;
-		
+
 		$.ajax({
-			url: this.url + "track/" + id,
-			method: "GET",
-			async: false,
-			cache: false,
-			dataType: "json",
-			success: function(data) { response = data; },
-			error: function() { }
+			url: 		this.url + "track/" + id,
+			method: 	"GET",
+			async: 		false,
+			cache: 		false,
+			dataType: 	"json",
+			success: 	function(data) { response = data; },
+			error: 		function() { }
 		});
 		
 		return response;

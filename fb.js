@@ -28,7 +28,7 @@ var onLogin = function() {
 var onGetMusics = function() {
 	$("#listens").empty();
 	
-	FB.api("/me/music.listens",
+	FB.api("/me/music.listens?limit=100",
 		function (response) {
 			console.log("Response: ");
 			console.log(response);
@@ -39,7 +39,7 @@ var onGetMusics = function() {
 			var da = new DeezerApi("https://api.deezer.com/");
 						
 			var listens = response.data;
-			for(var i = 0;i < listens.length; i++) {
+			for(var i = 0; i < listens.length; i++) {
 				console.log(listens[i]);
 				
 				var tracklink = listens[i].data.song.url;
@@ -51,7 +51,8 @@ var onGetMusics = function() {
 					//console.log("Music id of spot music: "+ sa.getIdFromFacebookUrl(tracklink));
 					$("html").append("<pre>"+ sa.getTrackInfo(sa.getIdFromFacebookUrl(tracklink)) +"</pre>");
 				} else if( getMusicSource(tracklink) == "deezer" ) {
-					$("html").append("<pre>"+ da.getTrackInfo(da.getIdFromFacebookUrl(tracklink)) +"</pre>");
+					//console.log("deezer response:");
+					//$("html").append("<pre>"+ da.getTrackInfo(da.getIdFromFacebookUrl(tracklink)) +"</pre>");
 				}
 			}
 		}
@@ -65,23 +66,21 @@ function createButtons() {
 
 
 function sendMusic() {
-	FB.api(
-						"/me/music.listens",
-						"POST",
-						{
-							"song": "http:\/\/samples.ogp.me\/461258627226537",
-							"radio_station": "http:\/\/samples.ogp.me\/461258533893213",
-							"album": "http:\/\/samples.ogp.me\/461258347226565",
-							"playlist": "http:\/\/samples.ogp.me\/461258467226553",
-							"musician": "http:\/\/samples.ogp.me\/390580850990722"
-						},
-						function (response) {
-							console.log("Response:");
-							console.log(response);
-							console.log("Error:");
-							console.log(response.error);
-						}
-					);
+	FB.api("/me/music.listens", "POST",
+		{
+			"song": "http:\/\/samples.ogp.me\/461258627226537",
+			"radio_station": "http:\/\/samples.ogp.me\/461258533893213",
+			"album": "http:\/\/samples.ogp.me\/461258347226565",
+			"playlist": "http:\/\/samples.ogp.me\/461258467226553",
+			"musician": "http:\/\/samples.ogp.me\/390580850990722"
+		},
+		function (response) {
+			console.log("Response:");
+			console.log(response);
+			console.log("Error:");
+			console.log(response.error);
+		}
+	);
 }
 		
 window.fbAsyncInit = function() {
